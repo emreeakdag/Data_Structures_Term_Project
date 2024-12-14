@@ -46,6 +46,10 @@ public class test extends JFrame {
 		lblNewLabel.setFont(new Font("Tahoma", Font.PLAIN, 16));
 		lblNewLabel.setBounds(203, 53, 130, 198);
 		contentPane.add(lblNewLabel);
+		
+		JLabel lblNewLabel_1 = new JLabel("xd");
+		lblNewLabel_1.setBounds(204, 323, 45, 13);
+		contentPane.add(lblNewLabel_1);
 	}
 
 }
