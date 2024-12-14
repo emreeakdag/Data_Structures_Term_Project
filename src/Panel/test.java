@@ -35,7 +35,7 @@ public class test extends JFrame {
 	public test() {
 		setResizable(false);
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		setBounds(100, 100, 697, 501);
+		setBounds(100, 100, 800, 600);
 		contentPane = new JPanel();
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
 
@@ -44,7 +44,7 @@ public class test extends JFrame {
 		
 		JLabel lblNewLabel = new JLabel("eraerwe");
 		lblNewLabel.setFont(new Font("Tahoma", Font.PLAIN, 16));
-		lblNewLabel.setBounds(203, 53, 130, 198);
+		lblNewLabel.setBounds(203, 53, 87, 148);
 		contentPane.add(lblNewLabel);
 		
 		JLabel lblNewLabel_1 = new JLabel("xd");
