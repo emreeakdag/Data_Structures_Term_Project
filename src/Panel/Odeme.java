@@ -111,7 +111,7 @@ public class Odeme extends JFrame {
 		
 		JLabel lblNewLabel_3_1 = new JLabel("CVC");
 		lblNewLabel_3_1.setFont(new Font("Tahoma", Font.PLAIN, 20));
-		lblNewLabel_3_1.setBounds(386, 315, 56, 25);
+		lblNewLabel_3_1.setBounds(386, 315, 67, 25);
 		contentPane.add(lblNewLabel_3_1);
 		
 		textField_4 = new JTextField();
