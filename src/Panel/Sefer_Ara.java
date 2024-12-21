@@ -121,7 +121,7 @@ public class Sefer_Ara extends JFrame {
                 dispose(); // Mevcut pencereyi kapat
             }
         });
-        ucus_ara_buton.setBounds(500, 441, 149, 59);
+        ucus_ara_buton.setBounds(500, 440, 150, 60);
         contentPane.add(ucus_ara_buton);
 
         nereden_comboBox.addActionListener(e -> {
@@ -135,5 +135,16 @@ public class Sefer_Ara extends JFrame {
                 nereye_comboBox.setSelectedItem(secilenNereye);
             }
         });
+
+        // Geri dön butonu ekle
+        JButton geri_don_buton = new JButton("Geri Dön");
+        geri_don_buton.setFont(new Font("Tahoma", Font.BOLD, 21));
+        geri_don_buton.addActionListener(e -> {
+            Menu menuFrame = new Menu();
+            menuFrame.setVisible(true);
+            dispose(); // Sefer_Ara JFrame'ini kapat
+        });
+        geri_don_buton.setBounds(125, 440, 150, 60);
+        contentPane.add(geri_don_buton);
     }
 }
