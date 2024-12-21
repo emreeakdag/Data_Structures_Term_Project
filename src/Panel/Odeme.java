@@ -12,6 +12,11 @@ import javax.swing.JSeparator;
 import javax.swing.SwingConstants;
 import javax.swing.JComboBox;
 import javax.swing.JButton;
+import javax.swing.JTextPane;
+import javax.swing.JFormattedTextField;
+import javax.swing.DropMode;
+import javax.swing.JTextArea;
+import javax.swing.JToolBar;
 
 public class Odeme extends JFrame {
 
@@ -87,6 +92,8 @@ public class Odeme extends JFrame {
 		contentPane.add(separator);
 		
 		textField_3 = new JTextField();
+		textField_3.setHorizontalAlignment(SwingConstants.LEFT);
+		textField_3.setToolTipText("");
 		textField_3.setColumns(10);
 		textField_3.setBounds(386, 150, 370, 30);
 		contentPane.add(textField_3);
@@ -123,5 +130,9 @@ public class Odeme extends JFrame {
 		btnNewButton.setFont(new Font("Tahoma", Font.BOLD, 17));
 		btnNewButton.setBounds(546, 453, 189, 44);
 		contentPane.add(btnNewButton);
-	}
+		
+		JLabel lblNewLabel_3 = new JLabel("Örnek: #### #### #### ####");
+		lblNewLabel_3.setBounds(386, 180, 164, 13);
+		contentPane.add(lblNewLabel_3);
+}
 }
