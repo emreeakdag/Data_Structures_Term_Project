@@ -9,6 +9,7 @@ import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JRadioButton;
+import javax.swing.JOptionPane;
 import javax.swing.border.EmptyBorder;
 import javax.swing.JSeparator;
 import javax.swing.SwingConstants;
@@ -28,8 +29,8 @@ public class Sefer_Sec extends JFrame {
         contentPane.setLayout(null);
 
         JLabel bilgilerLabel = new JLabel("Seçilen Uçuş: " + nereden + " -> " + nereye + " | Tarih: " + tarih);
-        bilgilerLabel.setFont(new Font("Tahoma", Font.PLAIN, 20));
         bilgilerLabel.setBounds(50, 30, 700, 30);
+        bilgilerLabel.setFont(new Font("Tahoma", Font.PLAIN, 20));
         contentPane.add(bilgilerLabel);
 
         // Uçuş seçenekleri için RadioButtonlar
@@ -69,6 +70,9 @@ public class Sefer_Sec extends JFrame {
                     Yolcu_Bilgileri yolcuBilgileriFrame = new Yolcu_Bilgileri();
                     yolcuBilgileriFrame.setVisible(true);
                     dispose(); // Mevcut pencereyi kapat
+                } else {
+                    // Bilet seçilmemişse uyarı mesajı göster
+                    JOptionPane.showMessageDialog(Sefer_Sec.this, "Lütfen bir bilet seçin!", "Uyarı", JOptionPane.WARNING_MESSAGE);
                 }
             }
         });

@@ -1,8 +1,7 @@
 package Panel;
 
 import javax.swing.*;
-import javax.swing.border.EmptyBorder; // EmptyBorder import ediliyor
-import java.awt.*;
+import javax.swing.border.EmptyBorder;
 import java.awt.event.*;
 
 public class Yolcu_Bilgileri extends JFrame {
@@ -18,7 +17,7 @@ public class Yolcu_Bilgileri extends JFrame {
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         setBounds(100, 100, 800, 600);
         contentPane = new JPanel();
-        contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));  // EmptyBorder kullanımı
+        contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
         setContentPane(contentPane);
         contentPane.setLayout(null);
 
@@ -47,7 +46,7 @@ public class Yolcu_Bilgileri extends JFrame {
         tfIsim.addKeyListener(new KeyAdapter() {
             public void keyTyped(KeyEvent e) {
                 if (!Character.isLetter(e.getKeyChar()) && !Character.isWhitespace(e.getKeyChar())) {
-                    e.consume(); // Sadece harf ve boşluk girilmesine izin ver
+                    e.consume();
                 }
             }
         });
@@ -61,7 +60,7 @@ public class Yolcu_Bilgileri extends JFrame {
         tfSoyisim.addKeyListener(new KeyAdapter() {
             public void keyTyped(KeyEvent e) {
                 if (!Character.isLetter(e.getKeyChar()) && !Character.isWhitespace(e.getKeyChar())) {
-                    e.consume(); // Sadece harf ve boşluk girilmesine izin ver
+                    e.consume();
                 }
             }
         });
@@ -84,10 +83,10 @@ public class Yolcu_Bilgileri extends JFrame {
         tfTcKimlik.addKeyListener(new KeyAdapter() {
             public void keyTyped(KeyEvent e) {
                 if (tfTcKimlik.getText().length() >= 11) {
-                    e.consume(); // 11 haneli sınır
+                    e.consume();
                 }
                 if (!Character.isDigit(e.getKeyChar())) {
-                    e.consume(); // Yalnızca rakam girmeye izin ver
+                    e.consume();
                 }
             }
         });
@@ -118,10 +117,10 @@ public class Yolcu_Bilgileri extends JFrame {
         tfTelefon.addKeyListener(new KeyAdapter() {
             public void keyTyped(KeyEvent e) {
                 if (tfTelefon.getText().length() >= 13) {
-                    e.consume(); // +90 + 10 haneli telefon numarası
+                    e.consume();
                 }
                 if (!Character.isDigit(e.getKeyChar()) && e.getKeyChar() != '+') {
-                    e.consume(); // Yalnızca rakam ve "+" işareti
+                    e.consume();
                 }
             }
         });
@@ -130,6 +129,56 @@ public class Yolcu_Bilgileri extends JFrame {
         // Devam Et Butonu
         JButton devamButton = new JButton("Devam Et");
         devamButton.setBounds(300, 500, 150, 30);
+        devamButton.addActionListener(e -> {
+            boolean isValid = true;
+
+            // Cinsiyet kontrolü
+            if (!rbBay.isSelected() && !rbBayan.isSelected()) {
+                JOptionPane.showMessageDialog(Yolcu_Bilgileri.this, "Cinsiyet seçmediniz!", "Hata", JOptionPane.ERROR_MESSAGE);
+                isValid = false;
+            }
+
+            // İsim kontrolü
+            if (tfIsim.getText().trim().isEmpty()) {
+                JOptionPane.showMessageDialog(Yolcu_Bilgileri.this, "İsim girmediniz!", "Hata", JOptionPane.ERROR_MESSAGE);
+                isValid = false;
+            }
+
+            // Soyisim kontrolü
+            if (tfSoyisim.getText().trim().isEmpty()) {
+                JOptionPane.showMessageDialog(Yolcu_Bilgileri.this, "Soyisim girmediniz!", "Hata", JOptionPane.ERROR_MESSAGE);
+                isValid = false;
+            }
+
+            // Doğum Tarihi kontrolü
+            if (tfDogumTarihi.getText().trim().isEmpty()) {
+                JOptionPane.showMessageDialog(Yolcu_Bilgileri.this, "Doğum tarihi girmediniz!", "Hata", JOptionPane.ERROR_MESSAGE);
+                isValid = false;
+            }
+
+            // E-posta kontrolü
+            if (tfEmail.getText().trim().isEmpty()) {
+                JOptionPane.showMessageDialog(Yolcu_Bilgileri.this, "E-posta girmediniz!", "Hata", JOptionPane.ERROR_MESSAGE);
+                isValid = false;
+            }
+
+            // TC Kimlik kontrolü
+            if (tfTcKimlik.getText().length() != 11) {
+                JOptionPane.showMessageDialog(Yolcu_Bilgileri.this, "TC kimliğinizi eksik girdiniz!", "Hata", JOptionPane.ERROR_MESSAGE);
+                isValid = false;
+            }
+
+            // Telefon numarası kontrolü
+            if (tfTelefon.getText().length() < 13) {
+                JOptionPane.showMessageDialog(Yolcu_Bilgileri.this, "Telefon numaranızı eksik girdiniz!", "Hata", JOptionPane.ERROR_MESSAGE);
+                isValid = false;
+            }
+
+            // Eğer tüm bilgiler doğru girildiyse
+            if (isValid) {
+                JOptionPane.showMessageDialog(Yolcu_Bilgileri.this, "Tüm bilgiler doğru girildi!", "Başarılı", JOptionPane.INFORMATION_MESSAGE);
+            }
+        });
         contentPane.add(devamButton);
 
         // Geri Dön Butonu
@@ -138,7 +187,7 @@ public class Yolcu_Bilgileri extends JFrame {
         contentPane.add(geriDonButton);
 
         geriDonButton.addActionListener(e -> {
-            Sefer_Sec seferSecFrame = new Sefer_Sec("İstanbul", "Ankara", "01/01/2024"); // Örnek veriler
+            Sefer_Sec seferSecFrame = new Sefer_Sec("İstanbul", "Ankara", "01/01/2025"); // Örnek veriler
             seferSecFrame.setVisible(true);
             dispose(); // Mevcut pencereyi kapat
         });
