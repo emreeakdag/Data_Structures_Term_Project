@@ -76,12 +76,12 @@ public class Sefer_Ara extends JFrame {
         contentPane.add(nereye_comboBox);
 
         JDateChooser tarih_secici = new JDateChooser();
-        tarih_secici.setBounds(210, 310, 188, 25);
+        tarih_secici.setBounds(125, 339, 188, 25);
         contentPane.add(tarih_secici);
 
         JLabel tarih_label = new JLabel("Tarih");
         tarih_label.setFont(new Font("Tahoma", Font.PLAIN, 30));
-        tarih_label.setBounds(125, 300, 82, 40);
+        tarih_label.setBounds(125, 289, 82, 40);
         contentPane.add(tarih_label);
 
         // Seçimleri yükle
@@ -90,6 +90,7 @@ public class Sefer_Ara extends JFrame {
         tarih_secici.setDate(secilenTarih);
 
         JButton ucus_ara_buton = new JButton("Uçuş Ara");
+        ucus_ara_buton.setFont(new Font("Tahoma", Font.BOLD, 21));
         ucus_ara_buton.addActionListener(e -> {
             String nereden = (String) nereden_comboBox.getSelectedItem();
             String nereye = (String) nereye_comboBox.getSelectedItem();
@@ -120,7 +121,7 @@ public class Sefer_Ara extends JFrame {
                 dispose(); // Mevcut pencereyi kapat
             }
         });
-        ucus_ara_buton.setBounds(523, 300, 149, 59);
+        ucus_ara_buton.setBounds(500, 441, 149, 59);
         contentPane.add(ucus_ara_buton);
 
         nereden_comboBox.addActionListener(e -> {

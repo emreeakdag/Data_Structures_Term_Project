@@ -10,6 +10,8 @@ import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JRadioButton;
 import javax.swing.border.EmptyBorder;
+import javax.swing.JSeparator;
+import javax.swing.SwingConstants;
 
 public class Sefer_Sec extends JFrame {
 
@@ -32,15 +34,18 @@ public class Sefer_Sec extends JFrame {
 
         // Uçuş seçenekleri için RadioButtonlar
         JRadioButton bilet1Radio = new JRadioButton("09:00 - Economy - 500 TL");
-        bilet1Radio.setBounds(100, 150, 300, 30);
+        bilet1Radio.setFont(new Font("Tahoma", Font.PLAIN, 20));
+        bilet1Radio.setBounds(50, 119, 300, 30);
         contentPane.add(bilet1Radio);
 
         JRadioButton bilet2Radio = new JRadioButton("12:00 - Business - 800 TL");
-        bilet2Radio.setBounds(100, 200, 300, 30);
+        bilet2Radio.setFont(new Font("Tahoma", Font.PLAIN, 20));
+        bilet2Radio.setBounds(50, 182, 300, 30);
         contentPane.add(bilet2Radio);
 
         JRadioButton bilet3Radio = new JRadioButton("18:00 - Economy - 600 TL");
-        bilet3Radio.setBounds(100, 250, 300, 30);
+        bilet3Radio.setFont(new Font("Tahoma", Font.PLAIN, 20));
+        bilet3Radio.setBounds(50, 245, 300, 30);
         contentPane.add(bilet3Radio);
 
         // RadioButtonları gruplama (aynı anda sadece bir tanesi seçilebilir)
@@ -51,7 +56,8 @@ public class Sefer_Sec extends JFrame {
 
         // Bileti Seç Butonu
         JButton biletSecButton = new JButton("Bileti Seç");
-        biletSecButton.setBounds(300, 500, 150, 30);
+        biletSecButton.setFont(new Font("Tahoma", Font.BOLD, 17));
+        biletSecButton.setBounds(562, 500, 150, 30);
         contentPane.add(biletSecButton);
 
         // Dinleyici ekle
@@ -69,8 +75,13 @@ public class Sefer_Sec extends JFrame {
 
         // Geri Dön Butonu
         JButton geriDonButton = new JButton("Geri Dön");
+        geriDonButton.setFont(new Font("Tahoma", Font.BOLD, 17));
         geriDonButton.setBounds(50, 500, 150, 30);
         contentPane.add(geriDonButton);
+        
+        JSeparator separator = new JSeparator();
+        separator.setBounds(46, 70, 553, 330);
+        contentPane.add(separator);
 
         // Geri Dön Butonu Dinleyici
         geriDonButton.addActionListener(new ActionListener() {
