@@ -119,18 +119,11 @@ public class Sefer_Ara extends JFrame {
             SimpleDateFormat dateFormat = new SimpleDateFormat("dd-MM-yyyy");
             String tarih = dateFormat.format(selectedDate);
 
-            // Çift yönlü LinkedList oluştur ve bilet.txt'ye yaz
-            LinkedList<String> biletBilgileri = new LinkedList<>();
-            biletBilgileri.add("Nereden: " + nereden);
-            biletBilgileri.add("Nereye: " + nereye);
-            biletBilgileri.add("Tarih: " + tarih);
+            // Bilet bilgilerini virgülle ayırarak tek satırda yaz
+            String biletBilgileri = nereden + "," + nereye + "," + tarih;
 
             try (BufferedWriter writer = new BufferedWriter(new FileWriter("bilet.txt", true))) {
-                for (String bilgi : biletBilgileri) {
-                    writer.write(bilgi);
-                    writer.newLine();
-                }
-                writer.write("-----"); // Ayırıcı çizgi
+                writer.write(biletBilgileri);
                 writer.newLine();
             } catch (IOException ex) {
                 JOptionPane.showMessageDialog(contentPane, "Dosyaya yazma sırasında bir hata oluştu.", "Hata", JOptionPane.ERROR_MESSAGE);
