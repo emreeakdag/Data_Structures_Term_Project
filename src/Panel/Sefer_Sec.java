@@ -3,6 +3,12 @@ package Panel;
 import java.awt.Font;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.io.BufferedReader;
+import java.io.BufferedWriter;
+import java.io.File;
+import java.io.FileReader;
+import java.io.FileWriter;
+import java.io.IOException;
 import javax.swing.ButtonGroup;
 import javax.swing.JButton;
 import javax.swing.JFrame;
@@ -12,7 +18,6 @@ import javax.swing.JRadioButton;
 import javax.swing.JOptionPane;
 import javax.swing.border.EmptyBorder;
 import javax.swing.JSeparator;
-import javax.swing.SwingConstants;
 
 public class Sefer_Sec extends JFrame {
 
@@ -82,7 +87,7 @@ public class Sefer_Sec extends JFrame {
         geriDonButton.setFont(new Font("Tahoma", Font.BOLD, 17));
         geriDonButton.setBounds(50, 500, 150, 30);
         contentPane.add(geriDonButton);
-        
+
         JSeparator separator = new JSeparator();
         separator.setBounds(46, 70, 553, 330);
         contentPane.add(separator);
@@ -91,6 +96,44 @@ public class Sefer_Sec extends JFrame {
         geriDonButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
+                // Bilet.txt'den ilgili veriyi sil
+                File inputFile = new File("bilet.txt");
+                File tempFile = new File("temp_bilet.txt");
+
+                try (BufferedReader reader = new BufferedReader(new FileReader(inputFile));
+                     BufferedWriter writer = new BufferedWriter(new FileWriter(tempFile))) {
+
+                    String line;
+                    boolean skipBlock = false;
+
+                    while ((line = reader.readLine()) != null) {
+                        if (line.equals("Nereden: " + nereden)) {
+                            // Güzergah ve tarihi içeren blok başlıyor
+                            skipBlock = true;
+                        }
+
+                        if (!skipBlock) {
+                            writer.write(line);
+                            writer.newLine();
+                        }
+
+                        if (line.equals("-----")) {
+                            // Blok sonu
+                            skipBlock = false;
+                        }
+                    }
+                } catch (IOException ex) {
+                    JOptionPane.showMessageDialog(contentPane, "Dosyadan silme sırasında bir hata oluştu.", "Hata", JOptionPane.ERROR_MESSAGE);
+                }
+
+                // Eski dosyayı sil ve geçici dosyayı yeniden adlandır
+                if (inputFile.delete() && tempFile.renameTo(inputFile)) {
+                   
+                } else {
+                    JOptionPane.showMessageDialog(contentPane, "Dosya güncellenemedi.", "Hata", JOptionPane.ERROR_MESSAGE);
+                }
+
+                // Sefer_Ara JFrame'ine geri dön
                 Sefer_Ara seferAraFrame = new Sefer_Ara();
                 seferAraFrame.setVisible(true);
                 dispose(); // Mevcut pencereyi kapat
