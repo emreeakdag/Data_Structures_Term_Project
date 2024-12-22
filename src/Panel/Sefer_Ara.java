@@ -4,9 +4,13 @@ import java.awt.EventQueue;
 import java.awt.Font;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.io.BufferedWriter;
+import java.io.FileWriter;
+import java.io.IOException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
+import java.util.LinkedList;
 import javax.swing.DefaultComboBoxModel;
 import javax.swing.JComboBox;
 import javax.swing.JFrame;
@@ -114,6 +118,24 @@ public class Sefer_Ara extends JFrame {
 
             SimpleDateFormat dateFormat = new SimpleDateFormat("dd-MM-yyyy");
             String tarih = dateFormat.format(selectedDate);
+
+            // Çift yönlü LinkedList oluştur ve bilet.txt'ye yaz
+            LinkedList<String> biletBilgileri = new LinkedList<>();
+            biletBilgileri.add("Nereden: " + nereden);
+            biletBilgileri.add("Nereye: " + nereye);
+            biletBilgileri.add("Tarih: " + tarih);
+
+            try (BufferedWriter writer = new BufferedWriter(new FileWriter("bilet.txt", true))) {
+                for (String bilgi : biletBilgileri) {
+                    writer.write(bilgi);
+                    writer.newLine();
+                }
+                writer.write("-----"); // Ayırıcı çizgi
+                writer.newLine();
+            } catch (IOException ex) {
+                JOptionPane.showMessageDialog(contentPane, "Dosyaya yazma sırasında bir hata oluştu.", "Hata", JOptionPane.ERROR_MESSAGE);
+                return;
+            }
 
             if (nereden != null && nereye != null) {
                 Sefer_Sec seferSecFrame = new Sefer_Sec(nereden, nereye, tarih);
