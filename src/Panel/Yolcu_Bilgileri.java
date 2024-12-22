@@ -3,6 +3,9 @@ package Panel;
 import javax.swing.*;
 import javax.swing.border.EmptyBorder;
 import java.awt.event.*;
+import java.io.*;
+import java.util.List;
+import java.util.ArrayList;
 
 public class Yolcu_Bilgileri extends JFrame {
 
@@ -187,6 +190,30 @@ public class Yolcu_Bilgileri extends JFrame {
         contentPane.add(geriDonButton);
 
         geriDonButton.addActionListener(e -> {
+            // Bilet.txt dosyasını oku ve verileri sil
+            File file = new File("bilet.txt");
+            List<String> fileContents = new ArrayList<>();
+
+            try (BufferedReader reader = new BufferedReader(new FileReader(file))) {
+                String line;
+                while ((line = reader.readLine()) != null) {
+                    // Sadece uçuş saati, sınıf tipi ve ücret bilgilerini içeren satırları atla
+                    if (line.contains("Economy") || line.contains("Business")) {
+                        continue;
+                    }
+                    fileContents.add(line);
+                }
+
+                try (BufferedWriter writer = new BufferedWriter(new FileWriter(file))) {
+                    for (String content : fileContents) {
+                        writer.write(content);
+                        writer.newLine();
+                    }
+                }
+            } catch (IOException ex) {
+                ex.printStackTrace();
+            }
+
             Sefer_Sec seferSecFrame = new Sefer_Sec("İstanbul", "Ankara", "01/01/2025"); // Örnek veriler
             seferSecFrame.setVisible(true);
             dispose(); // Mevcut pencereyi kapat
