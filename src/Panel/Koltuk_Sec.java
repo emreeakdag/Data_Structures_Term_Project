@@ -42,6 +42,7 @@ public class Koltuk_Sec extends JFrame {
 	 * Create the frame.
 	 */
 	public Koltuk_Sec() {
+		setResizable(false);
 		setBackground(SystemColor.info);
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setBounds(100, 100, 995, 800);
