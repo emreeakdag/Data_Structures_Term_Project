@@ -4,8 +4,6 @@ import javax.swing.*;
 import javax.swing.border.EmptyBorder;
 import java.awt.event.*;
 import java.io.*;
-import java.util.List;
-import java.util.ArrayList;
 
 public class Yolcu_Bilgileri extends JFrame {
 
@@ -24,7 +22,6 @@ public class Yolcu_Bilgileri extends JFrame {
         setContentPane(contentPane);
         contentPane.setLayout(null);
 
-        // Cinsiyet Seçimi
         JLabel lblCinsiyet = new JLabel("Cinsiyet:");
         lblCinsiyet.setBounds(50, 50, 80, 30);
         contentPane.add(lblCinsiyet);
@@ -40,7 +37,6 @@ public class Yolcu_Bilgileri extends JFrame {
         contentPane.add(rbBay);
         contentPane.add(rbBayan);
 
-        // İsim ve Soyisim
         JLabel lblIsim = new JLabel("İsim:");
         lblIsim.setBounds(50, 100, 80, 30);
         contentPane.add(lblIsim);
@@ -69,7 +65,6 @@ public class Yolcu_Bilgileri extends JFrame {
         });
         contentPane.add(tfSoyisim);
 
-        // Doğum Tarihi
         JLabel lblDogumTarihi = new JLabel("Doğum Tarihi:");
         lblDogumTarihi.setBounds(50, 200, 100, 30);
         contentPane.add(lblDogumTarihi);
@@ -77,7 +72,6 @@ public class Yolcu_Bilgileri extends JFrame {
         tfDogumTarihi.setBounds(140, 200, 200, 30);
         contentPane.add(tfDogumTarihi);
 
-        // TC Kimlik Numarası
         JLabel lblTcKimlik = new JLabel("TC Kimlik No:");
         lblTcKimlik.setBounds(50, 250, 100, 30);
         contentPane.add(lblTcKimlik);
@@ -95,7 +89,6 @@ public class Yolcu_Bilgileri extends JFrame {
         });
         contentPane.add(tfTcKimlik);
 
-        // E-Posta
         JLabel lblEmail = new JLabel("E-posta:");
         lblEmail.setBounds(50, 300, 80, 30);
         contentPane.add(lblEmail);
@@ -103,7 +96,6 @@ public class Yolcu_Bilgileri extends JFrame {
         tfEmail.setBounds(140, 300, 200, 30);
         contentPane.add(tfEmail);
 
-        // Telefon Numarası
         JLabel lblTelefon = new JLabel("Telefon:");
         lblTelefon.setBounds(50, 350, 80, 30);
         contentPane.add(lblTelefon);
@@ -129,99 +121,89 @@ public class Yolcu_Bilgileri extends JFrame {
         });
         contentPane.add(tfTelefon);
 
-        // Devam Et Butonu
         JButton devamButton = new JButton("Devam Et");
         devamButton.setBounds(300, 500, 150, 30);
         devamButton.addActionListener(e -> {
             boolean isValid = true;
 
-            // Cinsiyet kontrolü
             if (!rbBay.isSelected() && !rbBayan.isSelected()) {
-                JOptionPane.showMessageDialog(Yolcu_Bilgileri.this, "Cinsiyet seçmediniz!", "Hata", JOptionPane.ERROR_MESSAGE);
+                JOptionPane.showMessageDialog(this, "Cinsiyet seçmediniz!", "Hata", JOptionPane.ERROR_MESSAGE);
                 isValid = false;
             }
 
-            // İsim kontrolü
             if (tfIsim.getText().trim().isEmpty()) {
-                JOptionPane.showMessageDialog(Yolcu_Bilgileri.this, "İsim girmediniz!", "Hata", JOptionPane.ERROR_MESSAGE);
+                JOptionPane.showMessageDialog(this, "İsim girmediniz!", "Hata", JOptionPane.ERROR_MESSAGE);
                 isValid = false;
             }
 
-            // Soyisim kontrolü
             if (tfSoyisim.getText().trim().isEmpty()) {
-                JOptionPane.showMessageDialog(Yolcu_Bilgileri.this, "Soyisim girmediniz!", "Hata", JOptionPane.ERROR_MESSAGE);
+                JOptionPane.showMessageDialog(this, "Soyisim girmediniz!", "Hata", JOptionPane.ERROR_MESSAGE);
                 isValid = false;
             }
 
-            // Doğum Tarihi kontrolü
             if (tfDogumTarihi.getText().trim().isEmpty()) {
-                JOptionPane.showMessageDialog(Yolcu_Bilgileri.this, "Doğum tarihi girmediniz!", "Hata", JOptionPane.ERROR_MESSAGE);
+                JOptionPane.showMessageDialog(this, "Doğum tarihi girmediniz!", "Hata", JOptionPane.ERROR_MESSAGE);
                 isValid = false;
             }
 
-            // E-posta kontrolü
             if (tfEmail.getText().trim().isEmpty()) {
-                JOptionPane.showMessageDialog(Yolcu_Bilgileri.this, "E-posta girmediniz!", "Hata", JOptionPane.ERROR_MESSAGE);
+                JOptionPane.showMessageDialog(this, "E-posta girmediniz!", "Hata", JOptionPane.ERROR_MESSAGE);
                 isValid = false;
             }
 
-            // TC Kimlik kontrolü
             if (tfTcKimlik.getText().length() != 11) {
-                JOptionPane.showMessageDialog(Yolcu_Bilgileri.this, "TC kimliğinizi eksik girdiniz!", "Hata", JOptionPane.ERROR_MESSAGE);
+                JOptionPane.showMessageDialog(this, "TC kimliğinizi eksik girdiniz!", "Hata", JOptionPane.ERROR_MESSAGE);
                 isValid = false;
             }
 
-            // Telefon numarası kontrolü
             if (tfTelefon.getText().length() < 13) {
-                JOptionPane.showMessageDialog(Yolcu_Bilgileri.this, "Telefon numaranızı eksik girdiniz!", "Hata", JOptionPane.ERROR_MESSAGE);
+                JOptionPane.showMessageDialog(this, "Telefon numaranızı eksik girdiniz!", "Hata", JOptionPane.ERROR_MESSAGE);
                 isValid = false;
             }
 
-            // Eğer tüm bilgiler doğru girildiyse
             if (isValid) {
-                JOptionPane.showMessageDialog(Yolcu_Bilgileri.this, "Tüm bilgiler doğru girildi!", "Başarılı", JOptionPane.INFORMATION_MESSAGE);
-                
-                // Koltuk_Sec JFrame'ine yönlendir
-                Koltuk_Sec koltukSecFrame = new Koltuk_Sec();
-                koltukSecFrame.setVisible(true);
-                dispose(); // Mevcut pencereyi kapat
+                try {
+                    File file = new File("bilet.txt");
+                    BufferedReader reader = new BufferedReader(new FileReader(file));
+                    StringBuilder fileContent = new StringBuilder();
+                    String line;
+
+                    while ((line = reader.readLine()) != null) {
+                        fileContent.append(line);
+                    }
+
+                    reader.close();
+
+                    String cinsiyet = rbBay.isSelected() ? "Bay" : "Bayan";
+                    String yolcuBilgileri = String.format(",%s,%s,%s,%s,%s,%s,%s", cinsiyet, tfIsim.getText(), tfSoyisim.getText(),
+                            tfDogumTarihi.getText(), tfTcKimlik.getText(), tfEmail.getText(), tfTelefon.getText());
+
+                    try (BufferedWriter writer = new BufferedWriter(new FileWriter(file))) {
+                        writer.write(fileContent.toString() + yolcuBilgileri);
+                        writer.newLine();
+                    }
+
+                    JOptionPane.showMessageDialog(this, "Bilgiler kaydedildi!", "Başarılı", JOptionPane.INFORMATION_MESSAGE);
+
+                    Koltuk_Sec koltukSecFrame = new Koltuk_Sec();
+                    koltukSecFrame.setVisible(true);
+                    dispose();
+
+                } catch (IOException ex) {
+                    JOptionPane.showMessageDialog(this, "Dosya yazma hatası!", "Hata", JOptionPane.ERROR_MESSAGE);
+                }
             }
         });
         contentPane.add(devamButton);
 
-        // Geri Dön Butonu
         JButton geriDonButton = new JButton("Geri Dön");
         geriDonButton.setBounds(50, 500, 150, 30);
         contentPane.add(geriDonButton);
 
         geriDonButton.addActionListener(e -> {
-            // Bilet.txt dosyasını oku ve verileri sil
-            File file = new File("bilet.txt");
-            List<String> fileContents = new ArrayList<>();
-
-            try (BufferedReader reader = new BufferedReader(new FileReader(file))) {
-                String line;
-                while ((line = reader.readLine()) != null) {
-                    // Sadece uçuş saati, sınıf tipi ve ücret bilgilerini içeren satırları atla
-                    if (line.contains("Economy") || line.contains("Business")) {
-                        continue;
-                    }
-                    fileContents.add(line);
-                }
-
-                try (BufferedWriter writer = new BufferedWriter(new FileWriter(file))) {
-                    for (String content : fileContents) {
-                        writer.write(content);
-                        writer.newLine();
-                    }
-                }
-            } catch (IOException ex) {
-                ex.printStackTrace();
-            }
-
-            Sefer_Sec seferSecFrame = new Sefer_Sec("İstanbul", "Ankara", "01/01/2025"); // Örnek veriler
+            Sefer_Sec seferSecFrame = new Sefer_Sec("İstanbul", "Ankara", "01/01/2025"); // Örnek veri
             seferSecFrame.setVisible(true);
-            dispose(); // Mevcut pencereyi kapat
+            dispose();
         });
     }
 }
