@@ -3,12 +3,7 @@ package Panel;
 import java.awt.Font;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.io.BufferedReader;
-import java.io.BufferedWriter;
-import java.io.File;
-import java.io.FileReader;
-import java.io.FileWriter;
-import java.io.IOException;
+import java.io.*;
 import javax.swing.ButtonGroup;
 import javax.swing.JButton;
 import javax.swing.JFrame;
@@ -70,74 +65,54 @@ public class Sefer_Sec extends JFrame {
         biletSecButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                if (bilet1Radio.isSelected() || bilet2Radio.isSelected() || bilet3Radio.isSelected()) {
-                    // Yolcu_Bilgileri penceresine geç
-                    Yolcu_Bilgileri yolcuBilgileriFrame = new Yolcu_Bilgileri();
-                    yolcuBilgileriFrame.setVisible(true);
-                    dispose(); // Mevcut pencereyi kapat
+                String secilenBilet = null;
+
+                if (bilet1Radio.isSelected()) {
+                    secilenBilet = "09:00 - Economy - 500 TL";
+                } else if (bilet2Radio.isSelected()) {
+                    secilenBilet = "12:00 - Business - 800 TL";
+                } else if (bilet3Radio.isSelected()) {
+                    secilenBilet = "18:00 - Economy - 600 TL";
+                }
+
+                if (secilenBilet != null) {
+                    // Seçilen bileti bilet.txt dosyasına virgülle ayırarak yaz
+                    String biletBilgileri = nereden + "," + nereye + "," + tarih + "," + secilenBilet.split(" - ")[0] + "," + secilenBilet.split(" - ")[1] + "," + secilenBilet.split(" - ")[2];
+
+                    File file = new File("bilet.txt");
+
+                    try (BufferedWriter writer = new BufferedWriter(new FileWriter(file, true))) {
+                        writer.write(biletBilgileri);
+                        writer.newLine();
+                        JOptionPane.showMessageDialog(contentPane, "Bilet seçimi başarılı!");
+
+                        // Yolcu Bilgileri Paneline geçiş yap
+                        Yolcu_Bilgileri yolcuBilgileriFrame = new Yolcu_Bilgileri();
+                        yolcuBilgileriFrame.setVisible(true);
+                        dispose(); // Bu pencereyi kapat
+                    } catch (IOException ex) {
+                        JOptionPane.showMessageDialog(contentPane, "Bilet kaydedilemedi.", "Hata", JOptionPane.ERROR_MESSAGE);
+                    }
                 } else {
-                    // Bilet seçilmemişse uyarı mesajı göster
-                    JOptionPane.showMessageDialog(Sefer_Sec.this, "Lütfen bir bilet seçin!", "Uyarı", JOptionPane.WARNING_MESSAGE);
+                    JOptionPane.showMessageDialog(contentPane, "Lütfen bir uçuş seçin.", "Hata", JOptionPane.ERROR_MESSAGE);
                 }
             }
         });
 
-        // Geri Dön Butonu
+        // Geri Dön butonu
         JButton geriDonButton = new JButton("Geri Dön");
         geriDonButton.setFont(new Font("Tahoma", Font.BOLD, 17));
         geriDonButton.setBounds(50, 500, 150, 30);
         contentPane.add(geriDonButton);
 
-        JSeparator separator = new JSeparator();
-        separator.setBounds(46, 70, 553, 330);
-        contentPane.add(separator);
-
-        // Geri Dön Butonu Dinleyici
-        geriDonButton.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                // Bilet.txt'den ilgili veriyi sil
-                File inputFile = new File("bilet.txt");
-                File tempFile = new File("temp_bilet.txt");
-
-                try (BufferedReader reader = new BufferedReader(new FileReader(inputFile));
-                     BufferedWriter writer = new BufferedWriter(new FileWriter(tempFile))) {
-
-                    String line;
-                    boolean skipBlock = false;
-
-                    while ((line = reader.readLine()) != null) {
-                        if (line.equals("Nereden: " + nereden)) {
-                            // Güzergah ve tarihi içeren blok başlıyor
-                            skipBlock = true;
-                        }
-
-                        if (!skipBlock) {
-                            writer.write(line);
-                            writer.newLine();
-                        }
-
-                        if (line.equals("-----")) {
-                            // Blok sonu
-                            skipBlock = false;
-                        }
-                    }
-                } catch (IOException ex) {
-                    JOptionPane.showMessageDialog(contentPane, "Dosyadan silme sırasında bir hata oluştu.", "Hata", JOptionPane.ERROR_MESSAGE);
-                }
-
-                // Eski dosyayı sil ve geçici dosyayı yeniden adlandır
-                if (inputFile.delete() && tempFile.renameTo(inputFile)) {
-                   
-                } else {
-                    JOptionPane.showMessageDialog(contentPane, "Dosya güncellenemedi.", "Hata", JOptionPane.ERROR_MESSAGE);
-                }
-
-                // Sefer_Ara JFrame'ine geri dön
-                Sefer_Ara seferAraFrame = new Sefer_Ara();
-                seferAraFrame.setVisible(true);
-                dispose(); // Mevcut pencereyi kapat
-            }
+        geriDonButton.addActionListener(e -> {
+            Sefer_Ara seferAraFrame = new Sefer_Ara();
+            seferAraFrame.setVisible(true);
+            dispose();
         });
+
+        JSeparator separator = new JSeparator();
+        separator.setBounds(50, 90, 700, 2);
+        contentPane.add(separator);
     }
 }
