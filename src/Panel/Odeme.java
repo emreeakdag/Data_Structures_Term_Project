@@ -128,7 +128,7 @@ public class Odeme extends JFrame {
 		
 		JButton btnNewButton = new JButton("Ödemeyi Tamamla");
 		btnNewButton.setFont(new Font("Tahoma", Font.BOLD, 17));
-		btnNewButton.setBounds(546, 453, 189, 44);
+		btnNewButton.setBounds(524, 453, 211, 44);
 		contentPane.add(btnNewButton);
 		
 		JLabel lblNewLabel_3 = new JLabel("Örnek: #### #### #### ####");
