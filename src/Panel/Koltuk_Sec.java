@@ -14,6 +14,8 @@ import javax.swing.JTextField;
 import javax.swing.JEditorPane;
 import javax.swing.JSeparator;
 import javax.swing.SwingConstants;
+import javax.swing.JButton;
+import java.awt.Font;
 
 public class Koltuk_Sec extends JFrame {
 
@@ -129,5 +131,15 @@ public class Koltuk_Sec extends JFrame {
 		separator.setOrientation(SwingConstants.VERTICAL);
 		separator.setBounds(444, 50, 15, 631);
 		contentPane.add(separator);
+		
+		JButton geriDonButton = new JButton("Geri Dön");
+		geriDonButton.setFont(new Font("Tahoma", Font.BOLD, 17));
+		geriDonButton.setBounds(45, 691, 150, 30);
+		contentPane.add(geriDonButton);
+		
+		JButton btnBiletiOnayla = new JButton("Bileti Onayla");
+		btnBiletiOnayla.setFont(new Font("Tahoma", Font.BOLD, 17));
+		btnBiletiOnayla.setBounds(712, 691, 150, 30);
+		contentPane.add(btnBiletiOnayla);
 	}
 }
