@@ -180,6 +180,11 @@ public class Yolcu_Bilgileri extends JFrame {
             // Eğer tüm bilgiler doğru girildiyse
             if (isValid) {
                 JOptionPane.showMessageDialog(Yolcu_Bilgileri.this, "Tüm bilgiler doğru girildi!", "Başarılı", JOptionPane.INFORMATION_MESSAGE);
+                
+                // Koltuk_Sec JFrame'ine yönlendir
+                Koltuk_Sec koltukSecFrame = new Koltuk_Sec();
+                koltukSecFrame.setVisible(true);
+                dispose(); // Mevcut pencereyi kapat
             }
         });
         contentPane.add(devamButton);
