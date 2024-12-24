@@ -118,6 +118,11 @@ public class Koltuk_Sec extends JFrame {
         JButton geriDonButton = new JButton("Geri Dön");
         geriDonButton.setFont(new Font("Tahoma", Font.BOLD, 17));
         geriDonButton.setBounds(45, 691, 150, 30);
+        geriDonButton.addActionListener(e -> {
+            Yolcu_Bilgileri yolcuBilgileriFrame = new Yolcu_Bilgileri();
+            yolcuBilgileriFrame.setVisible(true);
+            dispose();
+        });
         contentPane.add(geriDonButton);
 
         JButton btnBiletiOnayla = new JButton("Bileti Onayla");
