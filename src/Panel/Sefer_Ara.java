@@ -125,6 +125,7 @@ public class Sefer_Ara extends JFrame {
             try (BufferedWriter writer = new BufferedWriter(new FileWriter("bilet.txt", true))) {
                 writer.write(biletBilgileri);
                 writer.newLine();
+                
             } catch (IOException ex) {
                 JOptionPane.showMessageDialog(contentPane, "Dosyaya yazma sırasında bir hata oluştu.", "Hata", JOptionPane.ERROR_MESSAGE);
                 return;
