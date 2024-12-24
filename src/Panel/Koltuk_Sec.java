@@ -169,6 +169,11 @@ public class Koltuk_Sec extends JFrame {
                     writer.close();
 
                     JOptionPane.showMessageDialog(this, "Bilet başarıyla güncellendi!", "Başarılı", JOptionPane.INFORMATION_MESSAGE);
+
+                    // Menu Jframe'ine yönlendirme
+                    Menu menuFrame = new Menu();
+                    menuFrame.setVisible(true);
+                    dispose();
                 } catch (IOException ex) {
                     JOptionPane.showMessageDialog(this, "Dosya yazma hatası!", "Hata", JOptionPane.ERROR_MESSAGE);
                 }
