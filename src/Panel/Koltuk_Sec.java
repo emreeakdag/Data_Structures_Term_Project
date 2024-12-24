@@ -158,17 +158,17 @@ public class Koltuk_Sec extends JFrame {
 
                     while ((line = reader.readLine()) != null) {
                         if (!line.trim().isEmpty()) {
-                            fileContent.append(line).append(", Koltuk: ").append(selectedSeat).append(System.lineSeparator());
+                            fileContent.append(line).append(", Koltuk: ").append(selectedSeat).append(" | ").append(System.lineSeparator());
                         }
                     }
-
+                    
                     reader.close();
 
                     BufferedWriter writer = new BufferedWriter(new FileWriter(file));
                     writer.write(fileContent.toString().trim());
                     writer.close();
 
-                    JOptionPane.showMessageDialog(this, "Bilet başarıyla güncellendi!", "Başarılı", JOptionPane.INFORMATION_MESSAGE);
+                    JOptionPane.showMessageDialog(this, "Bilet Onaylandı!", "Başarılı", JOptionPane.INFORMATION_MESSAGE);
 
                     // Menu Jframe'ine yönlendirme
                     Menu menuFrame = new Menu();
