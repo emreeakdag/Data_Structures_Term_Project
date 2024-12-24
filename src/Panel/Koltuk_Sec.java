@@ -4,19 +4,10 @@ import java.awt.EventQueue;
 import java.awt.event.ItemEvent;
 import java.awt.event.ItemListener;
 import java.io.*;
-
-import javax.swing.JFrame;
-import javax.swing.JPanel;
+import javax.swing.*;
 import javax.swing.border.EmptyBorder;
-import javax.swing.JLabel;
-import javax.swing.JOptionPane;
-import javax.swing.ImageIcon;
 import java.awt.Color;
 import java.awt.SystemColor;
-import javax.swing.JToggleButton;
-import javax.swing.JSeparator;
-import javax.swing.SwingConstants;
-import javax.swing.JButton;
 import java.awt.Font;
 
 public class Koltuk_Sec extends JFrame {
@@ -119,9 +110,33 @@ public class Koltuk_Sec extends JFrame {
         geriDonButton.setFont(new Font("Tahoma", Font.BOLD, 17));
         geriDonButton.setBounds(45, 691, 150, 30);
         geriDonButton.addActionListener(e -> {
-            Yolcu_Bilgileri yolcuBilgileriFrame = new Yolcu_Bilgileri();
-            yolcuBilgileriFrame.setVisible(true);
-            dispose();
+            try {
+                File file = new File("bilet.txt");
+                if (file.exists()) {
+                    BufferedReader reader = new BufferedReader(new FileReader(file));
+                    StringBuilder newContent = new StringBuilder();
+                    String line;
+
+                    while ((line = reader.readLine()) != null) {
+                        if (line.contains(",Economy,") || line.contains(",Business,")) {
+                            int index = Math.max(line.indexOf(",Economy,"), line.indexOf(",Business,"));
+                            newContent.append(line.substring(0, index + 9)).append(System.lineSeparator());
+                        }
+                    }
+
+                    reader.close();
+
+                    BufferedWriter writer = new BufferedWriter(new FileWriter(file));
+                    writer.write(newContent.toString().trim());
+                    writer.close();
+                }
+
+                Yolcu_Bilgileri yolcuBilgileriFrame = new Yolcu_Bilgileri();
+                yolcuBilgileriFrame.setVisible(true);
+                dispose();
+            } catch (IOException ex) {
+                JOptionPane.showMessageDialog(this, "Dosya işlemi sırasında bir hata oluştu!", "Hata", JOptionPane.ERROR_MESSAGE);
+            }
         });
         contentPane.add(geriDonButton);
 
