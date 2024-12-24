@@ -16,12 +16,15 @@ import java.awt.Font;
 import javax.swing.JTextField;
 import javax.swing.JButton;
 import javax.swing.JOptionPane;
+import javax.swing.JTextArea;
+import javax.swing.JScrollPane;
 
 public class Ucus_Sorgu extends JFrame {
 
     private static final long serialVersionUID = 1L;
     private JPanel contentPane;
     private JTextField textField;
+    private JTextArea textArea;
 
     /**
      * Launch the application.
@@ -81,6 +84,15 @@ public class Ucus_Sorgu extends JFrame {
         btnSorgula.setBounds(538, 467, 189, 44);
         contentPane.add(btnSorgula);
 
+        JScrollPane scrollPane = new JScrollPane();
+        scrollPane.setBounds(50, 200, 677, 200);
+        contentPane.add(scrollPane);
+
+        textArea = new JTextArea();
+        textArea.setEditable(false);
+        textArea.setFont(new Font("Monospaced", Font.PLAIN, 14));
+        scrollPane.setViewportView(textArea);
+
         btnSorgula.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
@@ -109,12 +121,13 @@ public class Ucus_Sorgu extends JFrame {
                                 }
                             }
                         }
-                        
+
                         if (matchedIndex != -1) {
                             String matchedBilet = biletler.get(matchedIndex);
-                            JOptionPane.showMessageDialog(null, "Bilet Bilgileri:\n" + matchedBilet, "Sorgu Sonucu", JOptionPane.INFORMATION_MESSAGE);
+                            String formattedBilet = matchedBilet.replace(",", "\n");
+                            textArea.setText("Bilet Bilgileri:\n" + formattedBilet);
                         } else {
-                            JOptionPane.showMessageDialog(null, "Girilen T.C. kimlik numarası ile eşleşen bilet bulunamadı.", "Sonuç", JOptionPane.WARNING_MESSAGE);
+                            textArea.setText("Girilen T.C. kimlik numarası ile eşleşen bilet bulunamadı.");
                         }
 
                     } catch (IOException ex) {
