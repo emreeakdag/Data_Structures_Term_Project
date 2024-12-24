@@ -61,6 +61,10 @@ public class Menu extends JFrame {
         menu_ucus_sorgu_buton.setFont(new Font("Tahoma", Font.PLAIN, 25));
         menu_ucus_sorgu_buton.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
+                // Ucus_Sorgu JFrame'ine geçiş
+                Ucus_Sorgu ucusSorguFrame = new Ucus_Sorgu();
+                ucusSorguFrame.setVisible(true);
+                dispose(); // Menu JFrame'ini kapat
             }
         });
         menu_ucus_sorgu_buton.setBounds(250, 400, 300, 80);
