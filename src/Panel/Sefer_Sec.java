@@ -76,14 +76,29 @@ public class Sefer_Sec extends JFrame {
                 }
 
                 if (secilenBilet != null) {
-                    // Seçilen bileti bilet.txt dosyasına virgülle ayırarak yaz
-                    String biletBilgileri = nereden + "," + nereye + "," + tarih + "," + secilenBilet.split(" - ")[0] + "," + secilenBilet.split(" - ")[1] + "," + secilenBilet.split(" - ")[2];
-
+                    // Seçilen bileti bilet.txt dosyasına mevcut satırın sonuna ekle
                     File file = new File("bilet.txt");
 
-                    try (BufferedWriter writer = new BufferedWriter(new FileWriter(file, true))) {
-                        writer.write(biletBilgileri);
-                        writer.newLine();
+                    try {
+                        StringBuilder updatedContent = new StringBuilder();
+
+                        if (file.exists()) {
+                            BufferedReader reader = new BufferedReader(new FileReader(file));
+                            String line;
+
+                            while ((line = reader.readLine()) != null) {
+                                if (line.contains(nereden + "," + nereye + "," + tarih)) {
+                                    line += "," + secilenBilet.split(" - ")[0] + "," + secilenBilet.split(" - ")[1] + "," + secilenBilet.split(" - ")[2];
+                                }
+                                updatedContent.append(line).append(System.lineSeparator());
+                            }
+                            reader.close();
+                        }
+
+                        BufferedWriter writer = new BufferedWriter(new FileWriter(file));
+                        writer.write(updatedContent.toString());
+                        writer.close();
+
                         JOptionPane.showMessageDialog(contentPane, "Bilet seçimi başarılı!");
 
                         // Yolcu Bilgileri Paneline geçiş yap
