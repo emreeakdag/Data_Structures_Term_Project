@@ -33,7 +33,7 @@ public class Koltuk_Sec extends JFrame {
         setResizable(false);
         setBackground(SystemColor.info);
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        setBounds(100, 100, 995, 800);
+        setBounds(100, 100, 417, 800);
         contentPane = new JPanel();
         contentPane.setBackground(SystemColor.scrollbar);
         contentPane.setForeground(SystemColor.info);
@@ -97,18 +97,9 @@ public class Koltuk_Sec extends JFrame {
         lblNewLabel.setIcon(new ImageIcon(Koltuk_Sec.class.getResource("/images/ucaksonnn.png")));
         contentPane.add(lblNewLabel);
 
-        JLabel lblNewLabel_1 = new JLabel("Seçilen uçuş ");
-        lblNewLabel_1.setBounds(492, 79, 370, 140);
-        contentPane.add(lblNewLabel_1);
-
-        JSeparator separator = new JSeparator();
-        separator.setOrientation(SwingConstants.VERTICAL);
-        separator.setBounds(444, 50, 15, 631);
-        contentPane.add(separator);
-
         JButton geriDonButton = new JButton("Geri Dön");
         geriDonButton.setFont(new Font("Tahoma", Font.BOLD, 17));
-        geriDonButton.setBounds(45, 691, 150, 30);
+        geriDonButton.setBounds(20, 691, 150, 30);
         geriDonButton.addActionListener(e -> {
             try {
                 File file = new File("bilet.txt");
@@ -118,9 +109,9 @@ public class Koltuk_Sec extends JFrame {
                     String line;
 
                     while ((line = reader.readLine()) != null) {
-                        if (line.contains(",Economy,") || line.contains(",Business,")) {
-                            int index = Math.max(line.indexOf(",Economy,"), line.indexOf(",Business,"));
-                            newContent.append(line.substring(0, index + 9)).append(System.lineSeparator());
+                        if (line.contains(",Economy,") || line.contains(",EconomyPlus,")) {
+                            int index = Math.max(line.indexOf(",Economy,"), line.indexOf(",EconomyPlus,"));
+                            newContent.append(line.substring(0, index + 19)).append(System.lineSeparator());
                         }
                     }
 
@@ -142,7 +133,7 @@ public class Koltuk_Sec extends JFrame {
 
         JButton btnBiletiOnayla = new JButton("Bileti Onayla");
         btnBiletiOnayla.setFont(new Font("Tahoma", Font.BOLD, 17));
-        btnBiletiOnayla.setBounds(712, 691, 150, 30);
+        btnBiletiOnayla.setBounds(240, 691, 150, 30);
         btnBiletiOnayla.addActionListener(e -> {
             if (!selectedSeat.isEmpty()) {
                 try {
