@@ -70,6 +70,16 @@ public class Yolcu_Bilgileri extends JFrame {
         contentPane.add(lblDogumTarihi);
         tfDogumTarihi = new JTextField();
         tfDogumTarihi.setBounds(140, 200, 200, 30);
+        tfDogumTarihi.addKeyListener(new KeyAdapter() {
+            public void keyTyped(KeyEvent e) {
+                if (!Character.isDigit(e.getKeyChar()) && e.getKeyChar() != '/') {
+                    e.consume();
+                }
+                if (tfDogumTarihi.getText().length() >= 10) {
+                    e.consume();
+                }
+            }
+        });
         contentPane.add(tfDogumTarihi);
 
         JLabel lblTcKimlik = new JLabel("TC Kimlik No:");
@@ -141,8 +151,8 @@ public class Yolcu_Bilgileri extends JFrame {
                 isValid = false;
             }
 
-            if (tfDogumTarihi.getText().trim().isEmpty()) {
-                JOptionPane.showMessageDialog(this, "Doğum tarihi girmediniz!", "Hata", JOptionPane.ERROR_MESSAGE);
+            if (!tfDogumTarihi.getText().matches("\\d{2}/\\d{2}/\\d{4}")) {
+                JOptionPane.showMessageDialog(this, "Doğum tarihini gün/ay/yıl formatında ve eksiksiz giriniz!", "Hata", JOptionPane.ERROR_MESSAGE);
                 isValid = false;
             }
 
