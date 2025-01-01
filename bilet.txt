@@ -1,0 +1,1 @@
+İstanbul,Antalya,27-12-2024,09:00,Economy,500 TL,Bay,a,b,22/06/2003,13900000000,yusuf@gmail.com,+905415425370, Koltuk: 8B |İstanbul,Ankara,26-12-2024,09:00,Economy,500 TL
